@@ -1,0 +1,42 @@
+[Domain]
+    nx = 40                 # number of grid points in x-dir
+    ny = 40                 # number of grid points in y-dir
+    nz = 20                 # number of grid points in z-dir
+    dx = 1                  # grid spacing in x-dir
+    dy = 1                  # grid spacing in y-dir
+    dz = 1                  # grid spacing in z-dir
+[]
+
+[Time]
+    nstep = 10000           # number of simulation steps
+    dt = 0.1                # time step
+[]
+
+[Output]
+    numOutputs = 100        # number of vtk outputs
+[]
+
+[PDApp]
+    app = true              # turn on app
+    N = 500                 # number of particles
+    pradii = 1.0            # particle radius
+    density = 0.23          # particle density
+    drag_coef = 3.0         # drag strength due to viscosity of medium
+    bm_str = 0.5            # brownian motion strength
+    equilSteps = 500        # number of steps to equilibrate particles
+    outputForces = 0        # 1 = write forces, 0 don't write forces
+    [./initial_condition]
+        vscl = 0.0          # scale initial velocity
+        type = random       # place particles randomly in domain
+
+    [../inter_particle_forces]
+        rcut = 8.0          # cut off radius for pair-interactions
+        type = Dipole       # type of interactions
+
+        # below paramters are specific to the "Dipole" type
+        Ex = 0              # E-field component in the x-dir
+        Ey = 0              # E-field component in the y-dir
+        Ez = 5.0            # E-field component in the z-dir
+        n = 13.0            # repulsive interaction exponent
+        eps = 1.0           # leonard jones parameter
+[]
